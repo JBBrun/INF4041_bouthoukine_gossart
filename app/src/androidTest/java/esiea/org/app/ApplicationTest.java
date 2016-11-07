@@ -1,4 +1,4 @@
-package bouthoukine_gossart.esiea.org.app;
+package esiea.org.app;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
