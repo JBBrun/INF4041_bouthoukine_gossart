@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/INF4041_bouthoukine_gossart.iml" filepath="$PROJECT_DIR$/INF4041_bouthoukine_gossart.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/rozor.iml" filepath="$PROJECT_DIR$/rozor.iml" />
     </modules>
   </component>
 </project>

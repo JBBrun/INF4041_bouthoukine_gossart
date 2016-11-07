@@ -5,8 +5,8 @@ android {
     buildToolsVersion "24.0.1"
 
     defaultConfig {
-        applicationId "fr.esiea.app"
-        minSdkVersion 15
+        applicationId "bouthoukine_gossart.esiea.org.app"
+        minSdkVersion 17
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
