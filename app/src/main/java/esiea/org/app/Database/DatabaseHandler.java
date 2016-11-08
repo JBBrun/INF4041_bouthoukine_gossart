@@ -41,6 +41,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String SECONDCOMPETENCE ="secondCompetences";
     private static final String EXPERIENCE ="experience";
     private static final String USER_ID ="user_id";
+    private static final String COMPETENCE_ID ="competence_id";
 
 
 
@@ -57,7 +58,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
     private static final String CREATE_TABLE_COMPETENCE = "CREATE TABLE "
-            + TABLE_COMPETENCE + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"+ FIRSTCOMPETENCE +" TEXT," + SECONDCOMPETENCE +" TEXT," + EXPERIENCE +"TEXT,"+ "FOREIGN KEY NOT NULL("+ USER_ID+") REFERENCES"+TABLE_USER+"(id)"+")";
+            + TABLE_COMPETENCE + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"+ NAME +" TEXT)";
+
+
+    private static final String CREATE_TABLE_COMPETENCE_USER = "CREATE TABLE "
+            + TABLE_COMPETENCE + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"+ USER_ID + "FOREIGN KEY("+ USER_ID+") REFERENCES"+TABLE_USER+"(id)"+ "FOREIGN KEY"+ COMPETENCE_ID+") REFERENCES"+TABLE_COMPETENCE+"(id)"+")";
 
 
     public DatabaseHandler(Context context) {
@@ -68,6 +73,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_USERS);
         db.execSQL(CREATE_TABLE_COMPETENCE);
+        db.execSQL(CREATE_TABLE_COMPETENCE_USER);
+
+        User user1 = new User("nicolas","go@go.com","gogo",1);
+        User user2 = new User("ayoub","ay@ay.com","ayay",1);
+        User user3 = new User("farouk","fa@fa.com","fafa",1);
+        User user4 = new User("khaled","kha@kha.com","khakha",1);
+        createUser(user1);
+        createUser(user2);
+        createUser(user3);
+        createUser(user4);
+
+
     }
 
     @Override
@@ -77,18 +94,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     //create competences
-    public long createCompetence (Competence competence){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = new ContentValues();
-
-        values.put("firstCompetence",competence.getFirstCompetence());
-        values.put("secondCompetences", competence.getSecondCompetences());
-        values.put("experience", competence.getExperience());
-
-        long competence_id = db.insertOrThrow(TABLE_COMPETENCE, null, values);
-
-        return competence_id ;
-    }
 
 
     //create a user

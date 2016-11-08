@@ -40,6 +40,10 @@
         android:layout_below="@+id/nameValue"
         android:layout_alignParentStart="true" />
 
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -69,14 +73,41 @@
         android:layout_alignParentStart="true"
         android:layout_alignEnd="@+id/emailValue" />
 
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/passValue"
+        android:layout_alignParentStart="true"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:layout_width="150dp"
+            android:id="@+id/radioCLient"
+            android:layout_height="50dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Client"
+            />
+        <RadioButton
+            android:layout_width="150dp"
+            android:id="@+id/radioCOnsultant"
+            android:layout_height="50dp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Consultant"
+
+            />
+    </RadioGroup>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/sign_up"
         android:id="@+id/button"
-        android:layout_below="@+id/passValue"
+        android:onClick="submitSignUp"
+        android:layout_marginTop="11dp"
+        android:layout_below="@+id/radioGroup"
         android:layout_alignParentStart="true"
         android:layout_alignEnd="@+id/passValue"
-        android:onClick="submitSignUp"/>
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

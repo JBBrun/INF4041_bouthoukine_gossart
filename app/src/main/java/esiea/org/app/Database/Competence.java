@@ -8,52 +8,32 @@ import java.util.List;
 
 public class Competence {
 
-    private Integer id;
-    private String firstCompetence;
-    private String secondCompetences;
-    private String experience;
-    private Integer user_id;
+    private int id;
+    private String name;
 
-    public Competence() {
+
+    public Competence(int id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
-    public Competence(Integer id, String firstCompetence, String secondCompetences, String experience) {
-        this.id = id;
-        this.firstCompetence = firstCompetence;
-        this.secondCompetences = secondCompetences;
-        this.experience = experience;
+    public Competence() {
     }
 
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public String getFirstCompetence() {
-        return firstCompetence;
+    public String getName() {
+        return name;
     }
 
-    public void setFirstCompetence(String firstCompetence) {
-        this.firstCompetence = firstCompetence;
-    }
-
-    public String getSecondCompetences() {
-        return secondCompetences;
-    }
-
-    public void setSecondCompetences(String secondCompetences) {
-        this.secondCompetences = secondCompetences;
-    }
-
-    public String getExperience() {
-        return experience;
-    }
-
-    public void setExperience(String experience) {
-        this.experience = experience;
+    public void setName(String name) {
+        this.name = name;
     }
 }
 
