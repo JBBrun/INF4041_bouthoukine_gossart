@@ -39,7 +39,9 @@ public class HomeActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
 
 
-        userList = db.getAllUsers();
+        User u = new User("Ayoub","ay@ay.com","ayoub",1);
+        userList.add(u);
+        //userList = db.getAllUsers();
 
         adapter.notifyDataSetChanged();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

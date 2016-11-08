@@ -50,7 +50,7 @@ public class ListAdapter extends BaseAdapter{
         if (convertView == null)
             convertView = inflater.inflate(R.layout.list_row, null);
 
-        TextView name = (TextView) convertView.findViewById(R.id.nameValue);
+        TextView name = (TextView) convertView.findViewById(R.id.name);
         User u = userItems.get(position);
         name.setText(u.getName());
 
