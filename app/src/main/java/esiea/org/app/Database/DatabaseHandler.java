@@ -28,6 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Table Names
     private static final String TABLE_USER = "users";
     private static final String TABLE_COMPETENCE = "competences";
+    private static final String TABLE_COMPETENCE_USER = "competences_user";
 
     // Common column names
     private static final String KEY_ID = "id";
@@ -62,7 +63,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
     private static final String CREATE_TABLE_COMPETENCE_USER = "CREATE TABLE "
-            + TABLE_COMPETENCE + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"+ USER_ID + "FOREIGN KEY("+ USER_ID+") REFERENCES"+TABLE_USER+"(id)"+ "FOREIGN KEY"+ COMPETENCE_ID+") REFERENCES"+TABLE_COMPETENCE+"(id)"+")";
+            + TABLE_COMPETENCE_USER + "(" + USER_ID + "FOREIGN KEY("+ USER_ID+") REFERENCES"+TABLE_USER+"(id),"+ "FOREIGN KEY"+ COMPETENCE_ID+") REFERENCES"+TABLE_COMPETENCE+"(id)"+")";
 
 
     public DatabaseHandler(Context context) {
@@ -135,9 +136,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return user;
     }
 
-    public List<User> getCompetence() {
+    public List<User> getCompetence( String competence) {
         List<User> user = new ArrayList<User>();
-        String selectQuery = "SELECT  * FROM " + TABLE_USER;
+
+        String selectQuery = "SELECT  * USERS LEFT JOIN  " + TABLE_COMPETENCE_USER +" ON USERS.id = "+ TABLE_COMPETENCE_USER
+                + "."+COMPETENCE_ID +" LEFT JOIN";
 
         Log.e("Database ", selectQuery);
 

@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.java:
                 // User chose the "Settings" item, show the app settings UI...
-                return true;
+                return true ;
 
             case R.id.cSharp:
                 // User chose the "Favorite" action, mark the current item
