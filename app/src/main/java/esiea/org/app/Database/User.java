@@ -5,11 +5,11 @@ package esiea.org.app.Database;
  */
 public class User {
 
-    private Integer id ;
+    private int id ;
     private String name;
     private String email;
     private String password;
-    private Integer profil;
+    private int profil;
 
     //constructors
     public User(String name,String email, String password, int profil)
