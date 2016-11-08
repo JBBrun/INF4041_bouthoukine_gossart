@@ -135,6 +135,31 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return user;
     }
 
+    public List<User> getCompetence() {
+        List<User> user = new ArrayList<User>();
+        String selectQuery = "SELECT  * FROM " + TABLE_USER;
+
+        Log.e("Database ", selectQuery);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                String name = c.getString(c.getColumnIndex("name"));
+                String email = c.getString(c.getColumnIndex("email"));
+                String password = c.getString(c.getColumnIndex("password"));
+                User u = new User(name,email,password,2);
+
+                user.add(u);
+            } while (c.moveToNext());
+        }
+        return user;
+    }
+
+
+
     private String getDateTime() {
         SimpleDateFormat dateFormat = new SimpleDateFormat(
                 "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
