@@ -5,4 +5,5 @@
     <string name="name">Name</string>
     <string name="password">Password</string>
     <string name="error_connection">Incorrect email or password</string>
+    <string name="registration_success">Registration complete !</string>
 </resources>

@@ -64,7 +64,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_CREATED_AT, getDateTime());
 
         // insert row
-        long user_id = db.insert(TABLE_USER, null, values);
+        long user_id = db.insertOrThrow(TABLE_USER, null, values);
 
         return user_id;
     }

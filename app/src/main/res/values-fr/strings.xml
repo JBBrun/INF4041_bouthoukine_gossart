@@ -6,4 +6,5 @@
     <string name="name">Nom</string>
     <string name="password">Mot de passe</string>
     <string name="error_connection">Email ou mot de passe incorrect</string>
+    <string name="registration_success">L\'inscription a été effectué avec succès</string>
 </resources>

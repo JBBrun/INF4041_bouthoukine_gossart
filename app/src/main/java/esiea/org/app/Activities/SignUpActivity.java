@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteQuery;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -36,6 +37,14 @@ public class SignUpActivity extends Activity {
         passwordView = (EditText) findViewById(R.id.passValue);
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
     public void submitSignUp(View v)
     {
         String name = nameView.getText().toString();
@@ -44,6 +53,8 @@ public class SignUpActivity extends Activity {
 
         User user = new User(name,email,password,2);
         db.createUser(user);
-        Toast.makeText(this,"Succcess",Toast.LENGTH_SHORT);
+        Toast.makeText(this,R.string.registration_success,Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
     }
 }

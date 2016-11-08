@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -17,7 +18,7 @@ import esiea.org.app.Database.DatabaseHandler;
 import esiea.org.app.Database.User;
 import esiea.org.app.R;
 
-public class SignInActivity extends Activity {
+public class SignInActivity extends AppCompatActivity {
 
     DatabaseHandler db;
     EditText emailEdit ;
@@ -34,6 +35,13 @@ public class SignInActivity extends Activity {
         errorText = (TextView) findViewById(R.id.labelError);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
     public void submitSignIn(View v)
     {
         String email = emailEdit.getText().toString();
@@ -42,6 +50,7 @@ public class SignInActivity extends Activity {
         {
             Intent intent = new Intent(this,HomeActivity.class);
             startActivity(intent);
+            finish();
         }
         else
         {
