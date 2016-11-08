@@ -27,14 +27,38 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // Table Names
     private static final String TABLE_USER = "users";
+    private static final String TABLE_COMPETENCE = "competences";
 
     // Common column names
     private static final String KEY_ID = "id";
     private static final String KEY_CREATED_AT = "created_at";
+    private static final String NAME ="name";
+    private static final String EMAIL ="email";
+    private static final String PASSWORD ="password";
+    private static final String PROFIL ="profil";
+
+    private static final String FIRSTCOMPETENCE ="firstCompetence";
+    private static final String SECONDCOMPETENCE ="secondCompetences";
+    private static final String EXPERIENCE ="experience";
+    private static final String USER_ID ="user_id";
+
+
+
+
 
     private static final String CREATE_TABLE_USERS = "CREATE TABLE "
+            + TABLE_USER + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + NAME +"TEXT," + EMAIL + " TEXT," + PASSWORD + " TEXT," + PROFIL + "INTEGER, " + KEY_CREATED_AT
+            + " DATETIME" + ")";
+
+ /*   private static final String CREATE_TABLE_USERS = "CREATE TABLE "
             + TABLE_USER + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT, email TEXT, password TEXT, profil INTEGER, " + KEY_CREATED_AT
             + " DATETIME" + ")";
+*/
+
+
+    private static final String CREATE_TABLE_COMPETENCE = "CREATE TABLE "
+            + TABLE_COMPETENCE + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"+ FIRSTCOMPETENCE +" TEXT," + SECONDCOMPETENCE +" TEXT," + EXPERIENCE +"TEXT,"+ "FOREIGN KEY NOT NULL("+ USER_ID+") REFERENCES"+TABLE_USER+"(id)"+")";
+
 
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -43,12 +67,27 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_USERS);
+        db.execSQL(CREATE_TABLE_COMPETENCE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldValue, int newValue) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
         onCreate(db);
+    }
+
+    //create competences
+    public long createCompetence (Competence competence){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("firstCompetence",competence.getFirstCompetence());
+        values.put("secondCompetences", competence.getSecondCompetences());
+        values.put("experience", competence.getExperience());
+
+        long competence_id = db.insertOrThrow(TABLE_COMPETENCE, null, values);
+
+        return competence_id ;
     }
 
 

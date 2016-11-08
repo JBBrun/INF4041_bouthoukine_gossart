@@ -5,11 +5,11 @@ package esiea.org.app.Database;
  */
 public class User {
 
-    private int id ;
+    private Integer id ;
     private String name;
     private String email;
     private String password;
-    private int profil;
+    private Integer profil;
 
     //constructors
     public User(String name,String email, String password, int profil)
@@ -59,4 +59,7 @@ public class User {
     public void setProfil(int profil) {
         this.profil = profil;
     }
+
+
+
 }
