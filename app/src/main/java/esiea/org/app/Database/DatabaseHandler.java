@@ -127,7 +127,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 String name = c.getString(c.getColumnIndex("name"));
                 String email = c.getString(c.getColumnIndex("email"));
                 String password = c.getString(c.getColumnIndex("password"));
-                User u = new User(name,email,password);
+                User u = new User(name,email,password,2);
 
                 user.add(u);
             } while (c.moveToNext());
