@@ -8,7 +8,9 @@
         android:layout_height="100dp"
         android:orientation="horizontal"
         android:padding="13dp"
-        android:background="@drawable/carrerblanc">
+        android:background="@drawable/carrerblanc"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
 
     <ImageView
         android:layout_width="90dp"

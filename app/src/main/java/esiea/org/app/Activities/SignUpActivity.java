@@ -54,7 +54,8 @@ public class SignUpActivity extends Activity {
         User user = new User(name,email,password,2);
         db.createUser(user);
         Toast.makeText(this,R.string.registration_success,Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this,MainActivity.class);
+        Intent intent = new Intent(this,SignInActivity.class);
         startActivity(intent);
+        finish();
     }
 }

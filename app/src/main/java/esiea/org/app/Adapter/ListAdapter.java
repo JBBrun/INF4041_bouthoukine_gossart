@@ -1,4 +1,4 @@
-package esiea.org.app;
+package esiea.org.app.Adapter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import esiea.org.app.Database.User;
+import esiea.org.app.R;
 
 /**
  * Created by Ayoub Bouthoukine on 08/11/2016.

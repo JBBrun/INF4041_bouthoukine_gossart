@@ -58,6 +58,12 @@ public class SignInActivity extends AppCompatActivity {
         }
     }
 
+    public void goToSignUp(View v)
+    {
+        Intent intent = new Intent(this,SignUpActivity.class);
+        startActivity(intent);
+    }
+
     public boolean isFound(String email,String password)
     {
         List <User> userList = db.getAllUsers();

@@ -38,8 +38,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String PASSWORD ="password";
     private static final String PROFIL ="profil";
 
-    private static final String FIRSTCOMPETENCE ="firstCompetence";
-    private static final String SECONDCOMPETENCE ="secondCompetences";
     private static final String EXPERIENCE ="experience";
     private static final String USER_ID ="user_id";
     private static final String COMPETENCE_ID ="competence_id";
@@ -48,22 +46,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
 
+   /* private static final String CREATE_TABLE_USERS = "CREATE TABLE "
+            + TABLE_USER + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + NAME +" TEXT," + EMAIL + " TEXT," + PASSWORD + " TEXT," + PROFIL + "INTEGER, " + KEY_CREATED_AT
+            + " DATETIME" + ")";*/
+
     private static final String CREATE_TABLE_USERS = "CREATE TABLE "
-            + TABLE_USER + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + NAME +"TEXT," + EMAIL + " TEXT," + PASSWORD + " TEXT," + PROFIL + "INTEGER, " + KEY_CREATED_AT
+            + TABLE_USER + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT, email TEXT, password TEXT, " + KEY_CREATED_AT
             + " DATETIME" + ")";
 
- /*   private static final String CREATE_TABLE_USERS = "CREATE TABLE "
-            + TABLE_USER + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT, email TEXT, password TEXT, profil INTEGER, " + KEY_CREATED_AT
-            + " DATETIME" + ")";
-*/
 
 
     private static final String CREATE_TABLE_COMPETENCE = "CREATE TABLE "
-            + TABLE_COMPETENCE + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"+ NAME +" TEXT)";
+            + TABLE_COMPETENCE + " (" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"+ NAME +" TEXT)";
 
 
     private static final String CREATE_TABLE_COMPETENCE_USER = "CREATE TABLE "
-            + TABLE_COMPETENCE_USER + "(" + USER_ID + "FOREIGN KEY("+ USER_ID+") REFERENCES"+TABLE_USER+"(id),"+ "FOREIGN KEY"+ COMPETENCE_ID+") REFERENCES"+TABLE_COMPETENCE+"(id)"+")";
+            + TABLE_COMPETENCE_USER + "(" + USER_ID + "  FOREIGN KEY("+ USER_ID+") REFERENCES "+TABLE_USER+"(id),"+ " FOREIGN KEY "+ COMPETENCE_ID+") REFERENCES "+TABLE_COMPETENCE+" (id)"+")";
 
 
     public DatabaseHandler(Context context) {
@@ -73,17 +71,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_USERS);
-        db.execSQL(CREATE_TABLE_COMPETENCE);
-        db.execSQL(CREATE_TABLE_COMPETENCE_USER);
-
-        User user1 = new User("nicolas","go@go.com","gogo",1);
-        User user2 = new User("ayoub","ay@ay.com","ayay",1);
-        User user3 = new User("farouk","fa@fa.com","fafa",1);
-        User user4 = new User("khaled","kha@kha.com","khakha",1);
-        createUser(user1);
-        createUser(user2);
-        createUser(user3);
-        createUser(user4);
+        //db.execSQL(CREATE_TABLE_COMPETENCE);
+        //db.execSQL(CREATE_TABLE_COMPETENCE_USER);
 
 
     }
@@ -100,7 +89,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     //create a user
     public long createUser(User user) {
         SQLiteDatabase db = this.getWritableDatabase();
-
         ContentValues values = new ContentValues();
         values.put("name", user.getName());
         values.put("email", user.getEmail());
@@ -108,8 +96,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(KEY_CREATED_AT, getDateTime());
 
         // insert row
-        long user_id = db.insertOrThrow(TABLE_USER, null, values);
-
+        long user_id = db.insert(TABLE_USER, null, values);
+        Log.d("Database","Result : "+user_id);
         return user_id;
     }
     //recuperer les objets users
@@ -126,6 +114,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (c.moveToFirst()) {
             do {
                 String name = c.getString(c.getColumnIndex("name"));
+
                 String email = c.getString(c.getColumnIndex("email"));
                 String password = c.getString(c.getColumnIndex("password"));
                 User u = new User(name,email,password,2);
@@ -136,11 +125,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return user;
     }
 
-    public List<User> getCompetence( String competence) {
+    public List<User> getAllCompetences( String competence) {
         List<User> user = new ArrayList<User>();
 
         String selectQuery = "SELECT  * USERS LEFT JOIN  " + TABLE_COMPETENCE_USER +" ON USERS.id = "+ TABLE_COMPETENCE_USER
-                + "."+COMPETENCE_ID +" LEFT JOIN";
+                + "."+USER_ID +" LEFT JOIN "+TABLE_COMPETENCE+" ON "+TABLE_COMPETENCE_USER+"."+COMPETENCE_ID+"="+TABLE_COMPETENCE +
+                "."+COMPETENCE_ID+" where "+TABLE_COMPETENCE+".name ="+"'" +competence+"'";
 
         Log.e("Database ", selectQuery);
 
@@ -154,7 +144,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 String email = c.getString(c.getColumnIndex("email"));
                 String password = c.getString(c.getColumnIndex("password"));
                 User u = new User(name,email,password,2);
-
                 user.add(u);
             } while (c.moveToNext());
         }
