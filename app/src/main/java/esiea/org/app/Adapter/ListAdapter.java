@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import esiea.org.app.Database.User;
+import esiea.org.app.Model.User;
 import esiea.org.app.R;
 
 /**

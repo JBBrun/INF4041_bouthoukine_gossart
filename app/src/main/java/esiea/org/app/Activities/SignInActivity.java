@@ -1,6 +1,5 @@
 package esiea.org.app.Activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,13 +8,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.StringTokenizer;
 
 import esiea.org.app.Database.DatabaseHandler;
-import esiea.org.app.Database.User;
+import esiea.org.app.Model.User;
 import esiea.org.app.R;
 
 public class SignInActivity extends AppCompatActivity {
@@ -46,9 +43,11 @@ public class SignInActivity extends AppCompatActivity {
     {
         String email = emailEdit.getText().toString();
         String password = passEdit.getText().toString();
-        if(isFound(email,password))
+        User u = isFound(email,password);
+        if(u!=null)
         {
             Intent intent = new Intent(this,HomeActivity.class);
+            intent.putExtra("profil",u.getProfil());
             startActivity(intent);
             finish();
         }
@@ -64,7 +63,7 @@ public class SignInActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public boolean isFound(String email,String password)
+    public User isFound(String email,String password)
     {
         List <User> userList = db.getAllUsers();
         Iterator it = userList.iterator();
@@ -72,8 +71,8 @@ public class SignInActivity extends AppCompatActivity {
         {
             User u = (User) it.next();
             if (u.getEmail().equals(email) && u.getPassword().equals(password))
-                return true;
+                return u;
         }
-        return false;
+        return null;
     }
 }

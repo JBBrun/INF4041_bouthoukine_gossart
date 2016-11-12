@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import esiea.org.app.Database.DatabaseHandler;
-import esiea.org.app.Database.User;
+import esiea.org.app.Model.User;
 import esiea.org.app.Adapter.ListAdapter;
 import esiea.org.app.R;
 
@@ -31,13 +31,14 @@ public class HomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         db = new DatabaseHandler(getApplicationContext());
+        int profil = getIntent().getIntExtra("profil",0);
         // instantiate
         listView = (ListView) findViewById(R.id.list);
         userList = new ArrayList<User>();
-        listView.setAdapter(adapter);
-        userList = db.getAllUsers();
+        userList = db.getUsersByProfil(profil);
         adapter = new ListAdapter(this, userList);
-         adapter.notifyDataSetChanged();
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {

@@ -1,4 +1,4 @@
-package esiea.org.app.Database;
+package esiea.org.app.Model;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package esiea.org.app.Database;
+package esiea.org.app.Model;
 
 /**
  * Created by Nicolas on 08/11/2016.

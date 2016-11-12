@@ -2,12 +2,6 @@ package esiea.org.app.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteCursorDriver;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
-import android.database.sqlite.SQLiteQuery;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -16,7 +10,7 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import esiea.org.app.Database.DatabaseHandler;
-import esiea.org.app.Database.User;
+import esiea.org.app.Model.User;
 import esiea.org.app.R;
 
 public class SignUpActivity extends Activity {
@@ -33,8 +27,8 @@ public class SignUpActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
         //connection à la base
+
         db = new DatabaseHandler(getApplicationContext());
         nameView = (EditText) findViewById(R.id.nameValue);
         emailView = (EditText) findViewById(R.id.emailValue);

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
@@ -13,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import esiea.org.app.Model.User;
 
 /**
  * Created by Ayoub Bouthoukine on 07/11/2016.
@@ -51,7 +52,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
             + " DATETIME" + ")";*/
 
     private static final String CREATE_TABLE_USERS = "CREATE TABLE "
-            + TABLE_USER + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT, email TEXT, password TEXT, " + KEY_CREATED_AT
+            + TABLE_USER + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT, email TEXT, password TEXT, profil int," + KEY_CREATED_AT
             + " DATETIME" + ")";
 
 
@@ -93,6 +94,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put("name", user.getName());
         values.put("email", user.getEmail());
         values.put("password", user.getPassword());
+        values.put("profil",user.getProfil());
         values.put(KEY_CREATED_AT, getDateTime());
 
         // insert row
@@ -117,13 +119,41 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
                 String email = c.getString(c.getColumnIndex("email"));
                 String password = c.getString(c.getColumnIndex("password"));
-                User u = new User(name,email,password,2);
+                int profil = c.getInt(c.getColumnIndex("profil"));
+                User u = new User(name,email,password,profil);
 
+                user.add(u);
+            } while (c.moveToNext());
+        }
+        Log.e("Database ", user.size()+"");
+        return user;
+    }
+
+    public List<User> getUsersByProfil(int i) {
+
+        i = (i+1)%2;
+        List<User> user = new ArrayList<User>();
+        String selectQuery = "SELECT  * FROM " + TABLE_USER + " where profil="+i; // 1=consultant
+
+        Log.e("Database", selectQuery);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (c.moveToFirst()) {
+            do {
+                String name = c.getString(c.getColumnIndex("name"));
+                String email = c.getString(c.getColumnIndex("email"));
+                String password = c.getString(c.getColumnIndex("password"));
+                int profil = Integer.parseInt(c.getString(c.getColumnIndex("profil")));
+                User u = new User(name,email,password,profil);
                 user.add(u);
             } while (c.moveToNext());
         }
         return user;
     }
+
 
     public List<User> getAllCompetences( String competence) {
         List<User> user = new ArrayList<User>();
