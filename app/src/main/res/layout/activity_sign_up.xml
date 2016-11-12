@@ -8,7 +8,8 @@
     android:paddingLeft="30dp"
     android:paddingRight="30dp"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".Activities.SignUpActivity">
+    tools:context=".Activities.SignUpActivity"
+    android:background="#2c3e50">
 
 
     <TextView
@@ -19,7 +20,9 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="88dp"
         android:text="@string/name"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/white"
+        />
 
     <EditText
         android:id="@+id/nameValue"
@@ -30,6 +33,7 @@
         android:layout_below="@+id/textView3"
         android:ems="10"
         android:inputType="textPersonName"
+        android:textColor="@color/white"
         />
 
     <TextView
@@ -39,11 +43,10 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/nameValue"
         android:text="Email"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/white"
+        />
 
-    <RadioGroup
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
     <EditText
         android:id="@+id/emailValue"
@@ -53,7 +56,8 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView4"
         android:ems="10"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        android:textColor="@color/white"/>
 
     <TextView
         android:id="@+id/textView5"
@@ -62,7 +66,8 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/emailValue"
         android:text="@string/password"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/white"/>
 
     <EditText
         android:id="@+id/passValue"
@@ -72,7 +77,8 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView5"
         android:ems="10"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:textColor="@color/white" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -80,14 +86,19 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/passValue"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        >
 
         <RadioButton
             android:id="@+id/radioCLient"
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:text="Client"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/white"
+            android:checked="true"
+            android:buttonTint="@color/white"
+            />
 
         <RadioButton
             android:id="@+id/radioCOnsultant"
@@ -95,7 +106,8 @@
             android:layout_height="50dp"
             android:text="Consultant"
             android:textAppearance="?android:attr/textAppearanceMedium"
-
+            android:textColor="@color/white"
+            android:buttonTint="@color/white"
             />
     </RadioGroup>
 
@@ -109,6 +121,11 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="11dp"
         android:onClick="submitSignUp"
-        android:text="@string/sign_up" />
+        android:text="@string/sign_up"
+        android:textColor="@color/white"
+        android:background="@color/red"
+        android:fontFamily="sans-serif"
+        android:textStyle="normal|bold"
+        />
 
 </RelativeLayout>
