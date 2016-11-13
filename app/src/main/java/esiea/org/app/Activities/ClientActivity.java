@@ -18,8 +18,7 @@ import esiea.org.app.Model.User;
 import esiea.org.app.Adapter.ListAdapter;
 import esiea.org.app.R;
 
-public class HomeActivity extends AppCompatActivity {
-
+public class ClientActivity extends AppCompatActivity {
 
     private ListView listView;
     private ListAdapter adapter;
@@ -29,20 +28,19 @@ public class HomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_client);
         db = new DatabaseHandler(getApplicationContext());
-        int profil = getIntent().getIntExtra("profil",0);
         // instantiate
         listView = (ListView) findViewById(R.id.list);
         userList = new ArrayList<User>();
-        userList = db.getUsersByProfil(profil);
+        userList = db.getClients();
         adapter = new ListAdapter(this, userList);
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(HomeActivity.this,userList.get(i).getName(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(ClientActivity.this,userList.get(i).getName(),Toast.LENGTH_SHORT).show();
 
             }
         });

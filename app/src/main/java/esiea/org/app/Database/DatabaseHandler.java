@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,6 +15,7 @@ import java.util.List;
 import java.util.Locale;
 
 import esiea.org.app.Model.User;
+import esiea.org.app.Security.Encrypt;
 
 /**
  * Created by Ayoub Bouthoukine on 07/11/2016.
@@ -45,24 +47,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
 
+    private static final String CREATE_TABLE_USERS = "CREATE TABLE users (id integer primary key autoincrement, name text, email text," +
+            " password text, profil int, created_at datetime)";
 
+    private static final String CREATE_TABLE_COMPETENCE = "CREATE TABLE competences (id integer primary key autoincrement, name text, experience text)";
 
-   /* private static final String CREATE_TABLE_USERS = "CREATE TABLE "
-            + TABLE_USER + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + NAME +" TEXT," + EMAIL + " TEXT," + PASSWORD + " TEXT," + PROFIL + "INTEGER, " + KEY_CREATED_AT
-            + " DATETIME" + ")";*/
+    private static final String CREATE_TABLE_COMPETENCE_USER = "CREATE TABLE competences_users ( user_id integer, competence_id integer, foreign key(user_id) references users(id)," +
+            "foreign key (competence_id) references competences(id),UNIQUE (user_id,competence_id))";
 
-    private static final String CREATE_TABLE_USERS = "CREATE TABLE "
-            + TABLE_USER + "(" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,name TEXT, email TEXT, password TEXT, profil int," + KEY_CREATED_AT
-            + " DATETIME" + ")";
-
-
-
-    private static final String CREATE_TABLE_COMPETENCE = "CREATE TABLE "
-            + TABLE_COMPETENCE + " (" + KEY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"+ NAME +" TEXT)";
-
-
-    private static final String CREATE_TABLE_COMPETENCE_USER = "CREATE TABLE "
-            + TABLE_COMPETENCE_USER + "(" + USER_ID + "  FOREIGN KEY("+ USER_ID+") REFERENCES "+TABLE_USER+"(id),"+ " FOREIGN KEY "+ COMPETENCE_ID+") REFERENCES "+TABLE_COMPETENCE+" (id)"+")";
 
 
     public DatabaseHandler(Context context) {
@@ -72,9 +64,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_USERS);
-        //db.execSQL(CREATE_TABLE_COMPETENCE);
-        //db.execSQL(CREATE_TABLE_COMPETENCE_USER);
-
+        db.execSQL(CREATE_TABLE_COMPETENCE);
+        db.execSQL(CREATE_TABLE_COMPETENCE_USER);
 
     }
 
@@ -93,7 +84,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put("name", user.getName());
         values.put("email", user.getEmail());
-        values.put("password", user.getPassword());
+        values.put("password", Encrypt.md5Encrypt(user.getPassword()));
         values.put("profil",user.getProfil());
         values.put(KEY_CREATED_AT, getDateTime());
 
@@ -115,13 +106,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // looping through all rows and adding to list
         if (c.moveToFirst()) {
             do {
+                int id = c.getInt(c.getColumnIndex("id"));
                 String name = c.getString(c.getColumnIndex("name"));
-
                 String email = c.getString(c.getColumnIndex("email"));
                 String password = c.getString(c.getColumnIndex("password"));
                 int profil = c.getInt(c.getColumnIndex("profil"));
                 User u = new User(name,email,password,profil);
-
+                u.setId(id);
                 user.add(u);
             } while (c.moveToNext());
         }
@@ -129,11 +120,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return user;
     }
 
-    public List<User> getUsersByProfil(int i) {
+    public List<User> getClients() {
 
-        i = (i+1)%2;
         List<User> user = new ArrayList<User>();
-        String selectQuery = "SELECT  * FROM " + TABLE_USER + " where profil="+i; // 1=consultant
+        String selectQuery = "SELECT  * FROM " + TABLE_USER + " where profil="+0; // 1=consultant
 
         Log.e("Database", selectQuery);
 
