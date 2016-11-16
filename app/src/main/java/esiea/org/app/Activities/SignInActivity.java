@@ -30,6 +30,7 @@ public class SignInActivity extends Activity {
         emailEdit = (EditText) findViewById(R.id.emailValue);
         passEdit = (EditText) findViewById(R.id.passValue);
         errorText = (TextView) findViewById(R.id.labelError);
+
     }
 
     public void submitSignIn(View v)

@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.security.MessageDigest;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,7 +28,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "consultingdb";
 
     // Table Names
-    private static final String TABLE_USER = "users";
+    private static final String TABLE_USER = "user";
     private static final String TABLE_COMPETENCE = "competences";
     private static final String TABLE_COMPETENCE_USER = "competences_user";
 
@@ -47,12 +46,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
 
 
-    private static final String CREATE_TABLE_USERS = "CREATE TABLE users (id integer primary key autoincrement, name text, email text," +
+    private static final String CREATE_TABLE_USER = "CREATE TABLE user (id integer primary key autoincrement, name text, email text," +
             " password text, profil int, created_at datetime)";
 
-    private static final String CREATE_TABLE_COMPETENCE = "CREATE TABLE competences (id integer primary key autoincrement, name text, experience text)";
+    private static final String CREATE_TABLE_COMPETENCE = "CREATE TABLE competences (id integer primary key autoincrement, name text)";
 
-    private static final String CREATE_TABLE_COMPETENCE_USER = "CREATE TABLE competences_users ( user_id integer, competence_id integer, foreign key(user_id) references users(id)," +
+    private static final String CREATE_TABLE_COMPETENCE_USER = "CREATE TABLE competences_users ( user_id integer, competence_id integer,experience text, foreign key(user_id) references users(id)," +
             "foreign key (competence_id) references competences(id),UNIQUE (user_id,competence_id))";
 
 
@@ -63,7 +62,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(CREATE_TABLE_USERS);
+        db.execSQL(CREATE_TABLE_USER);
         db.execSQL(CREATE_TABLE_COMPETENCE);
         db.execSQL(CREATE_TABLE_COMPETENCE_USER);
 
@@ -103,9 +102,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c = db.rawQuery(selectQuery, null);
 
+        for(String name:c.getColumnNames())
+                Log.e("Database",name);
         // looping through all rows and adding to list
         if (c.moveToFirst()) {
             do {
+
                 int id = c.getInt(c.getColumnIndex("id"));
                 String name = c.getString(c.getColumnIndex("name"));
                 String email = c.getString(c.getColumnIndex("email"));
