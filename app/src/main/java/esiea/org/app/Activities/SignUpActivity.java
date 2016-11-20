@@ -10,14 +10,14 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import esiea.org.app.Database.DatabaseHandler;
-import esiea.org.app.Model.User;
+import esiea.org.app.Model.Login;
 import esiea.org.app.R;
 
 public class SignUpActivity extends Activity {
 
     DatabaseHandler db;
     EditText nameView ;
-    EditText emailView ;
+    EditText usernameView;
     EditText passwordView;
     RadioButton clientView;
     RadioButton consultantView;
@@ -30,8 +30,7 @@ public class SignUpActivity extends Activity {
         //connection à la base
 
         db = new DatabaseHandler(getApplicationContext());
-        nameView = (EditText) findViewById(R.id.nameValue);
-        emailView = (EditText) findViewById(R.id.emailValue);
+        usernameView = (EditText) findViewById(R.id.usernameValue);
         passwordView = (EditText) findViewById(R.id.passValue);
         clientView = (RadioButton) findViewById(R.id.radioCLient);
         consultantView = (RadioButton) findViewById(R.id.radioCOnsultant);
@@ -47,13 +46,13 @@ public class SignUpActivity extends Activity {
 
     public void submitSignUp(View v)
     {
-        String name = nameView.getText().toString();
-        String email = emailView.getText().toString();
+
+        String username = usernameView.getText().toString();
         String password = passwordView.getText().toString();
         int profil = clientView.isChecked() ? 0 : 1;
 
-        User user = new User(name,email,password,profil);
-        db.createUser(user);
+        Login login = new Login(username,password,profil);
+        db.createUser(login);
         Toast.makeText(this,R.string.registration_success,Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this,SignInActivity.class);
         startActivity(intent);

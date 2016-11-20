@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="esiea.org.app.Activities.ProfilActivity"
     >
 
@@ -52,10 +51,30 @@
                 android:textColor="#9e9e9e"
                 />
 
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/ic_location_on_white_24dp"
+                android:layout_toStartOf="@+id/city"
+                android:layout_marginBottom="4dp"
+                android:layout_alignBottom="@+id/city"
+                android:tint="#9e9e9e"/>
+            <TextView
+                android:id="@+id/city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Paris"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#9e9e9e"
+                android:layout_below="@+id/job"
+                android:layout_centerHorizontal="true"
+                />
+
         </RelativeLayout>
     </android.support.v7.widget.CardView>
     
     <android.support.v7.widget.CardView
+        android:id="@+id/centerSection"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_below="@id/profileHeader">
@@ -71,21 +90,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="RATING"
-                android:layout_marginStart="45dp"
-                android:layout_below="@+id/projectsNumber"
+                android:text="RECOMMENDATION"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="17dp"
                 android:textColor="@color/red"/>
 
-            <TextView
-                android:id="@+id/projectsNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
 
             <TextView
                 android:layout_width="2dp"
                 android:layout_height="70dp"
                 android:background="@color/red"
-                android:gravity="center"
+                android:layout_marginLeft="15dp"
+                android:layout_toEndOf="@id/ratingLabel"
                 android:layout_centerInParent="true"/>
             <TextView
                 android:id="@+id/projects"
@@ -95,11 +111,44 @@
                 android:text="PROJECTS"
                 android:layout_alignTop="@+id/ratingLabel"
                 android:layout_alignParentEnd="true"
-                android:layout_marginRight="40dp"
+                android:layout_marginRight="28dp"
                 android:textColor="@color/red"/>
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/centerSection">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="20dp"
+            android:paddingRight="30dp"
+            android:paddingLeft="20dp"
+
+            >
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            
+            <Button
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:text="CONTACT ME"
+                android:background="#00c893"
+                android:textColor="@color/white"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textStyle="normal|bold"/>
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+    
 
 </RelativeLayout>

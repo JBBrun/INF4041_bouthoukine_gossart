@@ -11,14 +11,14 @@ import java.util.Iterator;
 import java.util.List;
 
 import esiea.org.app.Database.DatabaseHandler;
-import esiea.org.app.Model.User;
+import esiea.org.app.Model.Login;
 import esiea.org.app.R;
 import esiea.org.app.Security.Encrypt;
 
 public class SignInActivity extends Activity {
 
     DatabaseHandler db;
-    EditText emailEdit;
+    EditText usernameEdit;
     EditText passEdit;
     TextView errorText;
 
@@ -27,21 +27,32 @@ public class SignInActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
         db = new DatabaseHandler(getApplicationContext());
-        emailEdit = (EditText) findViewById(R.id.emailValue);
+        usernameEdit = (EditText) findViewById(R.id.usernameValue);
         passEdit = (EditText) findViewById(R.id.passValue);
         errorText = (TextView) findViewById(R.id.labelError);
 
+       /* ImageView icon = new ImageView(this); // Create an icon
+
+        icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_email_black_18dp));
+
+        FloatingActionButton actionButton = new FloatingActionButton.Builder(this)
+                .setContentView(icon)
+                .build();
+        actionButton.setBackgroundColor(getResources().getColor(R.color.red));
+        actionButton
+
+        FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(this).attachTo(actionButton).build();*/
     }
 
     public void submitSignIn(View v)
     {
-        String email = emailEdit.getText().toString();
+        String username = usernameEdit.getText().toString();
         String password = passEdit.getText().toString();
-        User u = isFound(email,password);
+        Login u = isFound(username,password);
         if(u!=null)
         {
             Intent intent;
-            if(u.getProfil() == 0) // Client
+            if(u.getType() == 0) // Client
             {
                 intent = new Intent(this,ClientActivity.class);
 
@@ -66,15 +77,15 @@ public class SignInActivity extends Activity {
         startActivity(intent);
     }
 
-    public User isFound(String email,String password)
+    public Login isFound(String username, String password)
     {
-        List <User> userList = db.getAllUsers();
-        Iterator it = userList.iterator();
+        List <Login> loginList = db.getAllUsers();
+        Iterator it = loginList.iterator();
         password = Encrypt.md5Encrypt(password);
         while (it.hasNext())
         {
-            User u = (User) it.next();
-            if (u.getEmail().equals(email) && u.getPassword().equals(password))
+            Login u = (Login) it.next();
+            if (u.getUsername().equals(username) && u.getPassword().equals(password))
                 return u;
         }
         return null;

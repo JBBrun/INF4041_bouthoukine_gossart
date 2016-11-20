@@ -10,7 +10,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import esiea.org.app.Model.User;
+import esiea.org.app.Model.Login;
+import esiea.org.app.Model.Profile;
 import esiea.org.app.R;
 
 /**
@@ -21,21 +22,21 @@ public class ListAdapter extends BaseAdapter{
 
     private Activity activity;
     private LayoutInflater inflater;
-    private List<User> userItems;
+    private List<Profile> profileItems;
 
-    public ListAdapter(Activity activity, List<User> userItems) {
+    public ListAdapter(Activity activity, List<Profile> profileItems) {
         this.activity = activity;
-        this.userItems = userItems;
+        this.profileItems = profileItems;
     }
 
     @Override
     public int getCount() {
-        return userItems.size();
+        return profileItems.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return userItems.get(i);
+        return profileItems.get(i);
     }
 
     @Override
@@ -52,8 +53,8 @@ public class ListAdapter extends BaseAdapter{
             convertView = inflater.inflate(R.layout.list_row, null);
 
         TextView name = (TextView) convertView.findViewById(R.id.name);
-        User u = userItems.get(position);
-        name.setText(u.getName());
+        Profile p = profileItems.get(position);
+        name.setText(p.getFirstname()+" "+p.getLastname());
 
         return convertView;
     }

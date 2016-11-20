@@ -9,54 +9,32 @@
     android:paddingRight="30dp"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".Activities.SignUpActivity"
-    android:background="#2c3e50">
+    android:background="@drawable/signupgrad">
 
 
     <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="88dp"
-        android:text="@string/name"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@color/white"
-        />
-
-    <EditText
-        android:id="@+id/nameValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView3"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textColor="@color/white"
-        />
-
-    <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/nameValue"
-        android:text="Email"
+        android:layout_alignParentEnd="true"
+        android:text="Username"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/white"
         />
 
 
     <EditText
-        android:id="@+id/emailValue"
+        android:id="@+id/usernameValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/nameValue"
         android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
         android:layout_below="@+id/textView4"
         android:ems="10"
-        android:inputType="textEmailAddress"
+        android:inputType ="text"
         android:textColor="@color/white"/>
 
     <TextView
@@ -64,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/emailValue"
+        android:layout_below="@+id/usernameValue"
         android:text="@string/password"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@color/white"/>
@@ -73,7 +51,7 @@
         android:id="@+id/passValue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/emailValue"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView5"
         android:ems="10"
@@ -115,7 +93,7 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/passValue"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/radioGroup"
         android:layout_centerHorizontal="true"

@@ -12,8 +12,9 @@
     android:layout_gravity="center"
     android:layout_width="match_parent"
     android:layout_height="100dp"
-    card_view:cardCornerRadius="4dp"
-    android:textSize="30dp">
+    card_view:cardCornerRadius="1dp"
+    android:textSize="30dp"
+        >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -40,17 +41,13 @@
             android:id="@+id/city"
             />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Show profile"
-            android:id="@+id/showprofil"
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_keyboard_arrow_right_black_36dp"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
-            android:background="@color/blue"
-            android:textColor="@color/white"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"/>
+            />
 
 
     </RelativeLayout>
