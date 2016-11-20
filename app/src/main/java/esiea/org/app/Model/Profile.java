@@ -17,7 +17,7 @@ public class Profile {
 
 
     public Profile() {
-        isFilled = "NO";
+        isFilled = "YES";
     }
 
     public  Profile(String firstname, String lastname, String email, int age, String city,String job)

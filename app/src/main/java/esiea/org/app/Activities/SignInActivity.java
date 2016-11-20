@@ -31,6 +31,7 @@ public class SignInActivity extends Activity {
         passEdit = (EditText) findViewById(R.id.passValue);
         errorText = (TextView) findViewById(R.id.labelError);
 
+
        /* ImageView icon = new ImageView(this); // Create an icon
 
         icon.setImageDrawable(getResources().getDrawable(R.drawable.ic_email_black_18dp));

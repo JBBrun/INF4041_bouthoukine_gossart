@@ -144,7 +144,8 @@
                 android:background="#00c893"
                 android:textColor="@color/white"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textStyle="normal|bold"/>
+                android:textStyle="normal|bold"
+                android:onClick="contact"/>
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>

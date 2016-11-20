@@ -1,30 +1,27 @@
 package esiea.org.app.Activities;
 
-import android.app.DownloadManager;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.JsonArrayRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+
 
 import esiea.org.app.Database.DatabaseHandler;
 import esiea.org.app.Model.Login;
@@ -32,37 +29,42 @@ import esiea.org.app.Adapter.ListAdapter;
 import esiea.org.app.Model.Profile;
 import esiea.org.app.R;
 
-public class ClientActivity extends AppCompatActivity {
+public class ClientActivity extends AppCompatActivity implements OnRecyclerClickListener {
 
-    private ListView listView;
+    private RecyclerView listView;
     private ListAdapter adapter;
     private List<Profile> profileList;
     private DatabaseHandler db;
+    private LinearLayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client);
         db = new DatabaseHandler(getApplicationContext());
-        addData(db);
+
         // instantiate
-        listView = (ListView) findViewById(R.id.list);
+        listView = (RecyclerView) findViewById(R.id.list);
         profileList = new ArrayList<Profile>();
         profileList = db.getConsultants();
 
-        Iterator <Profile> it = profileList.iterator();
+        /*Iterator <Profile> it = profileList.iterator();
         while(it.hasNext())
         {
             Profile p = it.next();
             if(p.getIsFilled().equals("NO"))
                 it.remove();
-        }
+        }*/
+        listView.setHasFixedSize(true);
 
+        // use a linear layout manager
+        mLayoutManager = new LinearLayoutManager(this);
+        listView.setLayoutManager(mLayoutManager);
 
-        adapter = new ListAdapter(this, profileList);
+        adapter = new ListAdapter(profileList,this);
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Toast.makeText(ClientActivity.this, profileList.get(i).getFirstname(),Toast.LENGTH_SHORT).show();
@@ -71,7 +73,7 @@ public class ClientActivity extends AppCompatActivity {
                 startActivity(intent);
 
             }
-        });
+        });*/
 
 
     }
@@ -79,19 +81,17 @@ public class ClientActivity extends AppCompatActivity {
     public void addData(final DatabaseHandler db) {
         String url = "https://api.myjson.com/bins/3gik6";
 
-        JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+        JsonArrayRequest jsArrRequest = new JsonArrayRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
 
                     @Override
-                    public void onResponse(JSONObject json) {
+                    public void onResponse(JSONArray json) {
                         try {
-                            JSONArray response = json.getJSONObject("data").getJSONArray("items");
                             Login login ;
                             Profile profile = new Profile();
-                            for(int i=0;i<response.length();i++)
+                            for(int i=0;i<json.length();i++)
                             {
-                                JSONObject obj = response.getJSONObject(i);
-
+                                JSONObject obj = json.getJSONObject(i);
                                 //remplire les donneés
                                 login = new Login(obj.getString("username"),obj.getString("password"),obj.getInt("profil"));
                                 profile.setFirstname(obj.getString("firstname"));
@@ -107,17 +107,21 @@ public class ClientActivity extends AppCompatActivity {
                             }
 
                         } catch (JSONException e) {
-                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(),
+                                    "Error: " + e.getMessage(),
+                                    Toast.LENGTH_LONG).show();
                         }
                     }
                 }, new Response.ErrorListener() {
 
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        // TODO Auto-generated method stub
-                        Log.e("ACCESS ","DENIEDEEEEEEEEEEEEED");
+                        Toast.makeText(getApplicationContext(),
+                                "Error: " + error.getMessage(),
+                                Toast.LENGTH_LONG).show();
                     }
                 });
+
 
     }
 
@@ -166,4 +170,10 @@ public class ClientActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onRecyclerClickListener(int idProfil) {
+        Intent intent = new Intent(getApplicationContext(),ProfilActivity.class);
+        intent.putExtra("id", idProfil);
+        startActivity(intent);
+    }
 }
